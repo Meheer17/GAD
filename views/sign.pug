@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Sign-up
+  
+  include _nav.pug
+
+  body.bg-dark.vh100
+  .d-flex.justify-content-center.align-items-center.mb-5
+    .container.mt-5
+      h1.text-center.text-light.my-auto.mb-0 Admin Sign-up 
+      form(action="/register" method="POST")
+        .form-group.mb-3
+          label.text-light(for="username") Username:
+          input.form-control(type="text" name="username" id="username" required)
+        .form-group.mb-3 
+          label.text-light(for="password") Password
+          input.form-control(type="password" name="password" id="password" required)
+            
+        button.btn.btn-primary.m-1(type="submit") Submit
+    
+  include _footer.pug
