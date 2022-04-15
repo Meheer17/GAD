@@ -7,15 +7,12 @@ const app = express()
 router.get('/:slug', async (req,res) => {
     const data = await Blog.findOne({slug: req.params.slug}) 
     if(data == null) res.redirect('/blogs')
+
     res.render('show', {blog: data})
 })
 
 router.get('/admin/login', (req, res) => {
     res.render('login')
-})
-
-router.get('/admin/sign', (req, res) => {
-    res.render('sign')
 })
 
 router.post('/', async (req, res, next) => {
@@ -34,8 +31,8 @@ router.delete('/delete/:id', async (req,res) => {
 })
 
 router.delete('/delete/com/:bid/:cid', async (req,res) => {
-    await Blog.comment.findByIdAndDelete(req.params.bid)
-    res.redirect(`/blogs/${blog.slug}`)
+    await Blog.updateOne({"_id": req.params.bid}, {$pull: {"comment": {"_id": req.params.cid}}})
+    res.redirect(`/blogs`)
 })
 
 router.route('/com/add/:id').post(function(req, res){

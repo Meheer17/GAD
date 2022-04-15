@@ -53,8 +53,12 @@ module.exports = function(app) {
         req.logout();
         res.redirect('/');
       });
+
+    app.get('/admin/sign',ensureAuthenticated,  (req, res) => {
+        res.render('sign')
+    })
         
-      app.route('/register').post(
+      app.route('/register').post( ensureAuthenticated,
         (req, res, next) => {
           const hash = bcrypt.hashSync(req.body.password, 12);
           adn.findOne({ username: req.body.username }, function (err, user) {
@@ -115,4 +119,4 @@ module.exports = function(app) {
       }
       res.redirect('/')
     }
-}    
+}   

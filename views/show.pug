@@ -31,17 +31,23 @@ body.bg-dark
         .row
           .col-sm-8.text-light 
             each comment in blog.comment.reverse()
-              .card.bg-light.p-2.mt-2
-                .card-body
-                  p.fs-2.text-dark= comment.comment
-                  p.text-muted.text-right= comment.date.toLocaleDateString()
+              if comment.comment == ""
+                next()
+              else 
+                .card.bg-light.p-2.mt-2
+                  .card-body
+                    p.fs-2.text-dark= comment.comment
+                    p.text-muted.text-right= comment.date.toLocaleDateString()
+                    if user
+                      form.d-inline(action=`/blogs/delete/com/${blog.id}/${comment.id}?_method=DELETE` method="post")
+                        button.btn.btn-danger.mx-1.mt-2(type='submit') DELETE
                   
                   
           .col-sm-4.text-light 
             form.mt-5.sticky-top(action=`/blogs/com/add/${blog.id}` method="POST") 
               .form-group.mb-3
                 label.text-light.mb-3(for="comment") Comment Here!! 
-                input.form-control(type="text" name="comment" id="comment" required)
+                textarea.form-control(type="text" name="comment" id="comment" required cols="30", rows="7")
               button.btn.btn-primary(type="submit") Submit
 
     include _footer.pug
