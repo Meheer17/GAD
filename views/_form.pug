@@ -10,5 +10,5 @@
   textarea.form-control(type="text" required ,name="markdown" ,id="markdown" , cols="30", rows="7")
     = `${blog.markdown}`
 
-a.btn.btn-secondary.mx-1(href="/blogs/s/u") Cancel
+a.btn.btn-secondary.mx-1(href=`/blogs/read/${blog.slug}`) Cancel
 button.btn.btn-primary.mx-1(type="submit") Save
