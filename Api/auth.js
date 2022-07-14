@@ -99,6 +99,7 @@ module.exports = function(app) {
         blog.title = req.body.title
         blog.description =  req.body.description
         blog.markdown =  req.body.markdown
+        blog.author = req.user.username
         blog.date = new Date().toLocaleDateString()
         try {
           blog = await blog.save()
@@ -139,6 +140,11 @@ module.exports = function(app) {
 
       app.get('/', ifAuthenticate, (req, res) => {
         res.render('abt')
+      })
+
+      app.get('/blogs-domestic', ifAuthenticate, async (req, res) => {
+        const data = await (await Blog.find()).reverse()
+        res.render('index', {det: data, nj: true})
       })
       
       app.get('/login', ifAuthenticate, (req, res) => {

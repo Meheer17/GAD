@@ -19,6 +19,9 @@ const BlogSchema = new Schema({
   description: {
     type: String
   },
+  author : {
+    type: String
+  },
   markdown: {
     type: String,
     required: true
