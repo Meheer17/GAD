@@ -82,7 +82,10 @@ module.exports = function(app) {
                   console.log("User " + username + " attempted to login");
                   if (err) {return done(err); }
                   if (!user) {return done(null, false);}
-                  if (!bcrypt.compareSync(password, user.password)) {return done(null, false);}
+                  if (!bcrypt.compareSync(password, user.password)) {
+                    console.log("ERROR PASS")
+                    return done(null, false);
+                  }
                   return done(null, user)
               });
           }
