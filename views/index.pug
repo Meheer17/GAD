@@ -19,7 +19,7 @@ html(lang="en")
           li.nav-item
             a.nav-link(aria-current='page' href='/') Home
           li.nav-item
-            a.nav-link.active(href='/blogs') Blogs
+            a.nav-link(href='/blogs') Blogs
           li.nav-item
             a.nav-link(href='/blogs-domestic') Blogs
           if user
@@ -37,30 +37,32 @@ html(lang="en")
 
         div.mb-4
           each val, index in det
-            .mt-4.bar-rad.bg-light
-              .card-body
-                h1.card-title= val.title
-                .class-subtitle.text-muted.mb-4
-                  h6= val.date.toLocaleDateString()
-                  h6= val.author 
-                .card-text.mb-2
-                  h5= val.description
-                  a.btn.btn-primary.mt-2(href=`/blogs/read/${val.slug}`) Read More
-
-    if nj 
-      if det.author == "Meheer"
-        .container.pt-4
-          h1.d-flex.justify-content-center.text-light Blogs
-
-          div.mb-4
-            each val, index in det
+            if val.author != "Meheer"
               .mt-4.bar-rad.bg-light
                 .card-body
                   h1.card-title= val.title
                   .class-subtitle.text-muted.mb-4
                     h6= val.date.toLocaleDateString()
+                    h6= val.author 
                   .card-text.mb-2
                     h5= val.description
-                    a.btn.btn-primary.mt-2(href=`/blogs/read/${val.slug}`) Read More  
+                    a.btn.btn-primary.mt-2(href=`/blogs/read/${val.slug}`) Read More
+
+    if nj 
+      each i in det
+        if i.author == "Meheer"
+          .container.pt-4
+            h1.d-flex.justify-content-center.text-light Blogs
+
+            div.mb-4
+              
+              .mt-4.bar-rad.bg-light
+                .card-body
+                  h1.card-title= i.title
+                  .class-subtitle.text-muted.mb-4
+                    h6= i.date.toLocaleDateString()
+                  .card-text.mb-2
+                    h5= i.description
+                    a.btn.btn-primary.mt-2(href=`/blogs/read/${i.slug}`) Read More  
     
     include _footer.pug
